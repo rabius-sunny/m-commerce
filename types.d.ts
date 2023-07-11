@@ -8,7 +8,12 @@ interface IProduct {
 }
 
 interface ICartItem {
-  name: string
+  id: string
+  title: string
   price: number
+  category: string
+  image: string
   quantity: number
 }
+
+type RootState = ICartItem[]

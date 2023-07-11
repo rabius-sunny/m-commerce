@@ -5,3 +5,15 @@
 .product {
   box-shadow: inset 0px 0px 20px 0px rgba(0, 0, 0, 0.1)
 }
+
+.action {
+  background: #f3f4f6;
+  color: gray;
+  margin: 0 10px;
+  padding: 2px 10px;
+  border-radius: 5px;
+}
+
+.action:first-child {
+  padding: 2px 12px;
+}
