@@ -3,15 +3,23 @@ import { addItem } from '@/states/cartSlice'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function ProductLists({ products }: any) {
+interface IProps {
+  products: IProduct[]
+  isLoading: boolean
+}
+export default function ProductLists({ products, isLoading }: IProps) {
   const dispatch = useAppDispatch()
 
   const handleAddItem = (product: IProduct) => {
     const { id, title, price, category, image } = product
     dispatch(addItem({ id, title, price, category, image, quantity: 1 }))
   }
+  if (isLoading) {
+    return <></>
+  }
+
   return (
-    <div className='mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
+    <div className='my-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
       {products.map((product: IProduct) => (
         <div key={product.id} className='group relative product'>
           <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 group-hover:transform group-hover:scale-110 transition duration-300 lg:h-80'>
@@ -20,6 +28,7 @@ export default function ProductLists({ products }: any) {
               alt={product.title}
               width={150}
               height={100}
+              // layout='responsive'
               className='h-full w-full p-8'
             />
           </div>
@@ -28,7 +37,7 @@ export default function ProductLists({ products }: any) {
               <h3 className='text-md text-gray-700'>
                 <Link href={`/product/${product.id}`}>
                   <span aria-hidden='true' className='absolute inset-0' />
-                  {product.title.slice(0, 25)}...
+                  {product.title.slice(0, 20)}...
                 </Link>
               </h3>
             </div>

@@ -16,4 +16,9 @@ interface ICartItem {
   quantity: number
 }
 
-type RootState = ICartItem[]
+interface IAllCartItems {
+  items: ICartItem[]
+}
+interface RootState {
+  cart: IAllCartItems
+}

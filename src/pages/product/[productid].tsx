@@ -7,7 +7,7 @@ import RelevantProducts from '@/components/RelevantProducts'
 
 export default function ProductDetails({ product }: any) {
   const dispatch = useAppDispatch()
-  const cart = useAppSelector(state => state.cart.cartItems)
+  const cart = useAppSelector(state => state.cart.items)
 
   if (!product) {
     return <div>Loading...</div>
@@ -70,9 +70,7 @@ export default function ProductDetails({ product }: any) {
           </div>
         </div>
       </div>
-      <div className=''>
-        <RelevantProducts category={category} />
-      </div>
+      <RelevantProducts category={category} />
     </div>
   )
 }

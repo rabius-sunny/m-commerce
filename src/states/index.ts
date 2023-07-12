@@ -27,6 +27,6 @@ const state = configureStore({
 export const persistor = persistStore(state)
 export type AppDispatch = typeof state.dispatch
 export const useAppDispatch = () => useDispatch<AppDispatch>()
-export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 export default state
