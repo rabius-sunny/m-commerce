@@ -7,7 +7,7 @@ interface IProps {
   category: string
 }
 export default function RelevantProducts({ category }: IProps) {
-  const fetcher = (path: string) => fetch(path).then(res => res.json())
+  const fetcher = (path: string) => fetch(path).then((res) => res.json())
   const { data, error, isLoading } = useSWR(
     `${endpoint}/category/${category}`,
     fetcher
@@ -18,7 +18,7 @@ export default function RelevantProducts({ category }: IProps) {
         Items you make like...
       </h2>
       {!isLoading && !error ? (
-        <ProductLists isLoading={isLoading} products={data} />
+        <ProductLists products={data} />
       ) : (
         <ProductSkeleton isLoading={isLoading} />
       )}

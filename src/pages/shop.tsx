@@ -16,16 +16,16 @@ export default function Shop({ products, categories }: IProps) {
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const cart = useAppSelector(state => state.cart.items)
+  const cart = useAppSelector((state) => state.cart.items)
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setIsLoading(true)
     const selectedSortKey = event.target.value
     setSortKey(selectedSortKey)
 
     fetch(`${endpoint}?sort=${selectedSortKey}`)
-      .then(response => response.json())
-      .then(data => setFilteredProducts(data))
-      .catch(err => alert('Error occured'))
+      .then((response) => response.json())
+      .then((data) => setFilteredProducts(data))
+      .catch((err) => alert('Error occured'))
       .finally(() => setIsLoading(false))
   }
 
@@ -40,9 +40,9 @@ export default function Shop({ products, categories }: IProps) {
       setFilteredProducts(products)
     } else {
       fetch(`https://fakestoreapi.com/products/category/${selectedCategoryKey}`)
-        .then(response => response.json())
-        .then(data => setFilteredProducts(data))
-        .catch(err => alert('Error occured'))
+        .then((response) => response.json())
+        .then((data) => setFilteredProducts(data))
+        .catch((err) => alert('Error occured'))
         .finally(() => setIsLoading(false))
     }
   }
@@ -51,12 +51,15 @@ export default function Shop({ products, categories }: IProps) {
     <div className='min-h-screen'>
       <div className='my-8 text-center'>
         <div className='flex items-center justify-between'>
-          <p className='text-pink-500 font-extralight text-xl sm:text-3xl'>
+          <p className='text-pink-500 font-medium text-xl sm:text-3xl'>
             M-Commerce
           </p>
-          <Link href='/cart' className='text-5xl relative'>
+          <Link
+            href='/cart'
+            className='text-3xl md:text-5xl relative'
+          >
             🛍
-            <span className='text-xs font-light bg-sky-500 border-4 border-white text-white px-2 py-[1.5px] rounded-full absolute top-0 left-9'>
+            <span className='text-xs font-light bg-sky-500 border-4 border-white text-white px-2 py-[1.5px] rounded-full absolute top-0 left-6 md:left-9'>
               {cart.length}
             </span>
           </Link>
@@ -101,15 +104,21 @@ export default function Shop({ products, categories }: IProps) {
           >
             <option value='all'>All</option>
             {categories?.map((item: string, idx: number) => (
-              <option value={item} key={idx}>
+              <option
+                value={item}
+                key={idx}
+              >
                 {item.toLocaleUpperCase()}
               </option>
             ))}
           </select>
         </div>
       </div>
-      <ProductSkeleton isLoading={isLoading} />
-      <ProductLists isLoading={isLoading} products={filteredProducts} />
+      {isLoading ? (
+        <ProductSkeleton isLoading={isLoading} />
+      ) : (
+        <ProductLists products={filteredProducts} />
+      )}
     </div>
   )
 }

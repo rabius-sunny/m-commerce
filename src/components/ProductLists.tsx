@@ -5,23 +5,22 @@ import Link from 'next/link'
 
 interface IProps {
   products: IProduct[]
-  isLoading: boolean
 }
-export default function ProductLists({ products, isLoading }: IProps) {
+export default function ProductLists({ products }: IProps) {
   const dispatch = useAppDispatch()
 
   const handleAddItem = (product: IProduct) => {
     const { id, title, price, category, image } = product
     dispatch(addItem({ id, title, price, category, image, quantity: 1 }))
   }
-  if (isLoading) {
-    return <></>
-  }
 
   return (
-    <div className='my-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8'>
+    <div className='my-8 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-8'>
       {products.map((product: IProduct) => (
-        <div key={product.id} className='group relative product'>
+        <div
+          key={product.id}
+          className='group relative product'
+        >
           <div className='aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 group-hover:transform group-hover:scale-110 transition duration-300 lg:h-80'>
             <Image
               src={product.image}
@@ -36,7 +35,10 @@ export default function ProductLists({ products, isLoading }: IProps) {
             <div>
               <h3 className='text-md text-gray-700'>
                 <Link href={`/product/${product.id}`}>
-                  <span aria-hidden='true' className='absolute inset-0' />
+                  <span
+                    aria-hidden='true'
+                    className='absolute inset-0'
+                  />
                   {product.title.slice(0, 20)}...
                 </Link>
               </h3>
