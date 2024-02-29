@@ -52,7 +52,7 @@ export default function Shop({ products, categories }: IProps) {
       <div className='my-8 text-center'>
         <div className='flex items-center justify-between'>
           <p className='text-pink-500 font-medium text-xl sm:text-3xl'>
-            M-Commerce
+            Next Mart
           </p>
           <Link
             href='/cart'
@@ -114,7 +114,7 @@ export default function Shop({ products, categories }: IProps) {
           </select>
         </div>
       </div>
-      {isLoading ? (
+      {isLoading || !products.length ? (
         <ProductSkeleton isLoading={isLoading} />
       ) : (
         <ProductLists products={filteredProducts} />
